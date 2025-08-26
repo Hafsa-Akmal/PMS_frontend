@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import SearchFilterBar from '../../../components/SearchFilterBar';
 import ProductCard from '../../../components/ProductCard';
 import Pagination from '../../../components/Pagination';

@@ -13,7 +13,10 @@ export default function ProductForm({ initial }) {
   });
   const [files, setFiles] = useState([]);
   const router = useRouter();
-  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [existingImages, setExistingImages] = useState([]);
+const [deletedImageIds, setDeletedImageIds] = useState([]);
+
   useEffect(() => {
     if (initial) {
       setForm({
@@ -23,6 +26,9 @@ export default function ProductForm({ initial }) {
         categoryId: initial.categoryId || '',
         stock: initial.stock?.toString() || '0',
       });
+        if (initial.images && Array.isArray(initial.images)) {
+      setExistingImages(initial.images);
+    }
     }
   }, [initial]);
 
@@ -32,7 +38,7 @@ export default function ProductForm({ initial }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+setIsSubmitting(true); 
     const token = localStorage.getItem('token');
     if (!token) {
       alert('Please login first');
@@ -60,6 +66,7 @@ export default function ProductForm({ initial }) {
 
     if (!res.ok) {
       alert('Request failed');
+       setIsSubmitting(false);
       return;
     }
 
@@ -112,7 +119,7 @@ export default function ProductForm({ initial }) {
         multiple
         onChange={(e) => setFiles(Array.from(e.target.files))}
       />
-      <button type="submit">
+      <button type="submit"disabled={isSubmitting}style={{ backgroundColor: isSubmitting ? '#ccc' : '#111', color: '#fff', borderRadius: '0.5rem', padding: '0.6rem 1rem', cursor: isSubmitting ? 'not-allowed' : 'pointer' } }>
         {initial ? 'Update Product' : 'Create Product'}
       </button>
     </form>

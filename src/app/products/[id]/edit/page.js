@@ -9,7 +9,6 @@ export default function EditPage({ params }) {
 
   const [product, setProduct] = useState(null);
   const [token, setToken] = useState(null);
-  const router = useRouter();
 
 
   useEffect(() => {
@@ -47,8 +46,13 @@ export default function EditPage({ params }) {
 
 function DeleteProductButton({ id }) {
   const router = useRouter();
+  const [isDeleting, setIsDeleting] = useState(false);
 
   async function del() {
+      if (isDeleting) return; 
+
+    setIsDeleting(true);
+
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/api/products/${id}`, {
       method: "DELETE",
@@ -60,13 +64,14 @@ function DeleteProductButton({ id }) {
       router.push("/products");
     } else {
       alert("Failed to delete product");
+      setIsDeleting(false);
     }
   }
 
   return (
     <button
       onClick={del}
-      className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
+       disabled={isDeleting}style={{ backgroundColor: isDeleting ? '#ccc' : '#e00', color: '#fff', borderRadius: '0.5rem', padding: '0.6rem 1rem', cursor: isDeleting ? 'not-allowed' : 'pointer', marginTop: '1rem' } }
     >
       Delete
     </button>
