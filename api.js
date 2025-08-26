@@ -1,0 +1,1 @@
+const base_url=ProcessingInstruction.env.BASE_URL
