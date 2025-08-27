@@ -65,7 +65,7 @@ setIsSubmitting(true);
     });
 
     if (!res.ok) {
-      alert('Request failed');
+      alert('please login first');
        setIsSubmitting(false);
       return;
     }
