@@ -65,7 +65,7 @@ setIsSubmitting(true);
     });
 
     if (!res.ok) {
-      alert('please login first');
+      alert('please fill all required fields and try again');
        setIsSubmitting(false);
       return;
     }

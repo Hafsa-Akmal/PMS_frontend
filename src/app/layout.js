@@ -10,9 +10,18 @@ export default function RootLayout({ children }) {
   const router = useRouter();
 
   useEffect(() => {
-    // check if token exists in localStorage
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
+    const checkToken = () => {
+      const token = localStorage.getItem("token");
+      setIsLoggedIn(!!token);
+    };
+
+    checkToken();
+  
+    window.addEventListener("storage", checkToken);
+
+    return () => {
+      window.removeEventListener("storage", checkToken);
+    };
   }, []);
 
   const handleLogout = () => {
