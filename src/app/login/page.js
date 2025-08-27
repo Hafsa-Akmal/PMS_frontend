@@ -28,6 +28,7 @@ export default function LoginPage() {
 
       const data = await res.json();
       localStorage.setItem('token', data.token);
+      window.dispatchEvent(new Event('authChange'));
       router.push('/products');
     } catch (err) {
       setError('Network error, try again.');

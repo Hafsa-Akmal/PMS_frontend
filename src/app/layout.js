@@ -16,16 +16,21 @@ export default function RootLayout({ children }) {
     };
 
     checkToken();
-  
+
+    // Listen to login/logout events
+    window.addEventListener("authChange", checkToken);
     window.addEventListener("storage", checkToken);
 
     return () => {
+      window.removeEventListener("authChange", checkToken);
       window.removeEventListener("storage", checkToken);
     };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    // fire custom event so RootLayout knows immediately
+    window.dispatchEvent(new Event("authChange"));
     setIsLoggedIn(false);
     router.push("/login");
   };
