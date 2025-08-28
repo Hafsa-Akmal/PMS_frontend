@@ -1,5 +1,6 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 import styles from './styles/Pagination.module.css';
 
 export default function Pagination({ page, totalPages }) {
@@ -11,6 +12,15 @@ export default function Pagination({ page, totalPages }) {
     q.set('page', String(to));
     router.push(`/products?${q.toString()}`);
   }
+
+  // ✅ Auto-redirect if current page > totalPages
+  useEffect(() => {
+    if (page > totalPages && totalPages > 0) {
+      go(totalPages); // redirect to last valid page
+    }
+  }, [page, totalPages]);
+
+  if (totalPages <= 1) return null; // ✅ Hide pagination if only 1 page
 
   return (
     <div className={styles.pagination}>
