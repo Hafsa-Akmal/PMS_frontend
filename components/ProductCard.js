@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import styles from './styles/ProductCard.module.css';
 
 export default function ProductCard({ p }) {
   const router = useRouter();
@@ -9,7 +10,7 @@ export default function ProductCard({ p }) {
   const images = p.ProductImages || [];
 
   const nextSlide = (e) => {
-    e.stopPropagation(); // prevent routing on button click
+    e.stopPropagation();
     setCurrent((prev) => (prev + 1) % images.length);
   };
 
@@ -21,48 +22,42 @@ export default function ProductCard({ p }) {
   return (
     <div
       onClick={() => router.push(`/products/${p.id}/edit`)}
-      className="border rounded-lg p-3 bg-white cursor-pointer hover:shadow-md transition"
+      className={styles.card}
     >
-      <div className="flex gap-3">
-    
-        <div className="relative w-24 h-24 overflow-hidden rounded">
-          {images.length > 0 ? (
-            <img
-              src={images[current]?.url}
-              alt={p.name}
-              className="w-full h-full object-cover"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400 text-sm">
-              No Image
-            </div>
-          )}
+      <div className={styles.imageWrapper}>
+        {images.length > 0 ? (
+          <img
+            src={images[current]?.url}
+            alt={p.name}
+            className={styles.image}
+          />
+        ) : (
+          <div className={styles.noImage}>No Image</div>
+        )}
 
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={prevSlide}
-                className="absolute left-1 top-1/2 -translate-y-1/2 bg-black/70 rounded-full px-1 text-xs"
-              >
-                ‹
-              </button>
-              <button
-                onClick={nextSlide}
-                className="absolute right-1 top-1/2 -translate-y-1/2 bg-black/70 rounded-full px-1 text-xs"
-              >
-                ›
-              </button>
-            </>
-          )}
-        </div>
+        {images.length > 1 && (
+          <>
+            <button onClick={prevSlide} className={`${styles.arrow} ${styles.left}`}>
+              ‹
+            </button>
+            <button onClick={nextSlide} className={`${styles.arrow} ${styles.right}`}>
+              ›
+            </button>
+          </>
+        )}
+      </div>
 
-        {/* Product Info */}
-        <div>
-          <div className="text-gray-600 font-semibold">{p.name}</div>
-          <div className="text-sm text-gray-600">{p.description}</div>
-          <div className="mt-1 text-gray-600">
-            Rs-{p.price} • Stock: {p.stock}
-          </div>
+      {/* Product Info */}
+      <div className={styles.info}>
+        <h3 className={styles.name}>{p.name}</h3>
+        <p className={styles.desc}>{p.description}</p>
+        <div className={styles.meta}>
+          <span className={styles.price}>Rs {p.price}</span>
+          <span
+            className={`${styles.stock} ${p.stock > 0 ? styles.inStock : styles.outStock}`}
+          >
+            {p.stock > 0 ? `In Stock (${p.stock})` : 'Out of Stock'}
+          </span>
         </div>
       </div>
     </div>

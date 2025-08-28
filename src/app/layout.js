@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
 
     checkToken();
 
-    // Listen to login/logout events
     window.addEventListener("authChange", checkToken);
     window.addEventListener("storage", checkToken);
 
@@ -29,7 +28,6 @@ export default function RootLayout({ children }) {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    // fire custom event so RootLayout knows immediately
     window.dispatchEvent(new Event("authChange"));
     setIsLoggedIn(false);
     router.push("/login");
@@ -37,30 +35,116 @@ export default function RootLayout({ children }) {
 
   return (
     <html lang="en">
-      <body className="min-h-screen bg-gray-50">
-        <nav className="px-6 py-4 bg-white text-black flex gap-4">
-          <Link href="/">Home</Link>
-          <Link href="/products">Products</Link>
-          <Link href="/products/new">Add Product</Link>
+      <body
+        style={{
+          minHeight: "100vh",
+          margin: 0,
+          backgroundColor: "#f9fafb",
+          fontFamily: "Inter, sans-serif",
+          color: "#111827",
+        }}
+      >
+        {/* Navbar */}
+        <nav
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "1.5rem",
+            padding: "1rem 2rem",
+            backgroundColor: "#ffffff",
+            borderBottom: "1px solid #e5e7eb",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.05)",
+          }}
+        >
+          <Link
+            href="/"
+            style={{
+              fontWeight: 600,
+              fontSize: "1rem",
+              color: "#374151",
+              textDecoration: "none",
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            href="/products"
+            style={{
+              fontWeight: 500,
+              fontSize: "1rem",
+              color: "#374151",
+              textDecoration: "none",
+            }}
+          >
+            Products
+          </Link>
+          <Link
+            href="/products/new"
+            style={{
+              fontWeight: 500,
+              fontSize: "1rem",
+              color: "#374151",
+              textDecoration: "none",
+            }}
+          >
+            Add Product
+          </Link>
 
-          <div className="ml-auto flex gap-4">
+          {/* Right Side (Auth) */}
+          <div style={{ marginLeft: "auto", display: "flex", gap: "1.25rem" }}>
             {isLoggedIn ? (
               <button
                 onClick={handleLogout}
-                className="text-red-500 hover:underline"
+                style={{
+                  color: "#ef4444",
+                  fontWeight: 500,
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                  fontSize: "1rem",
+                }}
+                onMouseOver={(e) => (e.currentTarget.style.textDecoration = "underline")}
+                onMouseOut={(e) => (e.currentTarget.style.textDecoration = "none")}
               >
                 Logout
               </button>
             ) : (
               <>
-                <Link href="/login">Login</Link>
-                <Link href="/register">Register</Link>
+                <Link
+                  href="/login"
+                  style={{
+                    fontWeight: 500,
+                    color: "#2563eb",
+                    textDecoration: "none",
+                  }}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  style={{
+                    fontWeight: 500,
+                    color: "#2563eb",
+                    textDecoration: "none",
+                  }}
+                >
+                  Register
+                </Link>
               </>
             )}
           </div>
         </nav>
 
-        <main className="p-6 max-w-5xl mx-auto">{children}</main>
+        {/* Main Content */}
+        <main
+          style={{
+            maxWidth: "960px",
+            margin: "2rem auto",
+            padding: "1.5rem",
+          }}
+        >
+          {children}
+        </main>
       </body>
     </html>
   );

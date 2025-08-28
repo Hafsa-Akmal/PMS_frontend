@@ -1,0 +1,125 @@
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  display: flex;             /* center content */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #f9fafb;       /* subtle bg for empty space */
+}
+
+.image {
+  max-width: 100%;           /* scale down if too wide */
+  max-height: 100%;          /* scale down if too tall */
+  object-fit: contain;       /* keep aspect ratio */
+}
+
+
+.noImage {
+  width: 100%;
+  height: 100%;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.left {
+  left: 8px;
+}
+
+.right {
+  right: 8px;
+}
+
+.info {
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.desc {
+  font-size: 0.85rem;
+  color: #6b7280;
+  height: 38px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.price {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0070f3;
+}
+
+.stock {
+  font-size: 0.8rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+}
+
+.inStock {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.outStock {
+  background: #fee2e2;
+  color: #991b1b;
+}

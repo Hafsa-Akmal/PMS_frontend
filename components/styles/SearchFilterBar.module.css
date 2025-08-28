@@ -1,0 +1,42 @@
+.filterBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+.input {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #e5e7eb; /* light gray */
+  border-radius: 0.5rem;
+  background: #fff;
+  font-size: 0.9rem;
+  color: #111827; /* dark gray/black */
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px rgba(0, 118, 255, 0.2);
+}
+
+.btn {
+  padding: 0.6rem 1rem;
+  background: #111827; /* dark gray/black */
+  color: #fff;
+  font-weight: 500;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn:hover {
+  background: #0070f3; /* ecommerce blue */
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
